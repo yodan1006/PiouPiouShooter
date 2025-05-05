@@ -1,0 +1,89 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Random = UnityEngine.Random;
+
+public class WaveManager : MonoBehaviour
+{
+    public List<Wave> waves = new List<Wave>();
+    public Transform[] spawnPoints;
+    public List<Transform> pointsToMove;
+    public float timeForNextWave;
+
+    private List<Enemy> activeWaveObjects;
+    private int currentWave = 0;
+    private bool IsSpawning = false;
+
+    private void Awake()
+    {
+        activeWaveObjects = new List<Enemy>();
+    }
+
+    private void Start()
+    {
+        StartCoroutine(StartNextWave());
+    }
+
+    IEnumerator StartNextWave()
+    {
+        while (true)
+        {
+            yield return StartCoroutine(SpawnWave(waves[currentWave]));
+            currentWave++;
+            
+            if (currentWave >= waves.Count)
+                currentWave = 0;
+            
+            yield return new WaitForSeconds(timeForNextWave);
+        }
+    }
+
+    IEnumerator SpawnWave(Wave wave)
+    {
+        IsSpawning = true;
+        
+        List<Transform> availablePoints = new List<Transform>(pointsToMove);
+        Shuffle(availablePoints);
+        for (int i = 0; i < wave.numberOfEnemies; i++)
+        {
+            int spawnIndex = Random.Range(0, spawnPoints.Length);
+            GameObject enemyPrefab = wave.prefabs[Random.Range(0, wave.prefabs.Count)];
+            GameObject enemy = Instantiate(enemyPrefab, spawnPoints[spawnIndex].position, Quaternion.identity);
+            
+
+            Enemy enemyScript = enemy.GetComponent<Enemy>();
+            if (enemyScript != null)
+            {
+                if (availablePoints.Count > 0)
+                {
+                    Transform pointToAssign = availablePoints[0];
+                    enemyScript.SetToMovePosition(pointToAssign.position);
+                    availablePoints.RemoveAt(0);
+                }
+
+                activeWaveObjects.Add(enemyScript);
+                enemyScript.OnDeath += OnEnemyDeath;
+            }
+            
+            yield return new WaitForSeconds(wave.spawnInterval);
+        }
+        IsSpawning = false;
+        
+        yield return new WaitUntil(() => activeWaveObjects.Count == 0);
+    }
+
+    void OnEnemyDeath(Enemy ennemy)
+    {
+        activeWaveObjects.Remove(ennemy);
+    }
+
+    private void Shuffle<T>(IList<T> list)
+    {
+        for (int i = list.Count - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, i + 1 );
+            (list[i], list[j]) = (list[j], list[i]);
+        }
+    }
+}
