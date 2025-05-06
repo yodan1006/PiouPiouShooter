@@ -16,17 +16,21 @@ public class LoopingMissile : MonoBehaviour
     private void GeneratPool()
     {
         missiles = new Queue<GameObject>();
-        int randomIndex = Random.Range(0, missilePrefab.Count);
-        GameObject missile = Instantiate(missilePrefab[(randomIndex)]);
-        missile.SetActive(false);
-        missile.transform.SetParent(m_parentTransform);
-        missiles.Enqueue(missile);
+        for (int i = 0; i < missileCount; i++)
+        {
+            int randomIndex = Random.Range(0, missilePrefab.Count);
+                    GameObject missile = Instantiate(missilePrefab[(randomIndex)]);
+                    missile.SetActive(false);
+                    missile.transform.SetParent(m_parentTransform);
+                    missiles.Enqueue(missile);
+        }
     }
     
     public void ReturnToPool(GameObject go)
     {
         go.SetActive(false);
         go.transform.SetParent(m_parentTransform);
+        missiles.Enqueue(go);
     }
 
     public GameObject GetMissiles()
