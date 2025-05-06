@@ -1948,7 +1948,7 @@ GameObject:
   - component: {fileID: 1665085929}
   m_Layer: 0
   m_Name: Manager
-  m_TagString: Untagged
+  m_TagString: Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1966,6 +1966,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScoreText: {fileID: 1212200291}
+  score: 0
   ScoreAdd: 100
   ScoreAddBoss: 1000
 --- !u!4 &1665085928
@@ -2014,7 +2015,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29bdab001fcc6624a8a753f34315dde6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ajoutBonusMaxLife: 1000
+  maxLife: 3
   life: 3
+  scoreManager: {fileID: 1665085927}
+  bonusScores: f4010000e8030000d0070000
 --- !u!1 &1701415590
 GameObject:
   m_ObjectHideFlags: 0
@@ -2291,6 +2296,10 @@ PrefabInstance:
     - target: {fileID: 6749384508609213361, guid: 4ec4edeccdbd7684781038ea4c7e2439, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7212837125238971186, guid: 4ec4edeccdbd7684781038ea4c7e2439, type: 3}
+      propertyPath: margineToScreen
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7380688939137539831, guid: 4ec4edeccdbd7684781038ea4c7e2439, type: 3}
       propertyPath: m_Name

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour, IDamage
@@ -7,7 +8,8 @@ public class Enemy : MonoBehaviour, IDamage
     [SerializeField] private float speedMove;
     [SerializeField] private float shootInterval;
     [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private Transform firePoint;
+    [SerializeField] private List<Transform> firePoint =  new List<Transform>();
+    [SerializeField] private int gainScore;
     public event Action<Enemy> OnDeath;
     
     private Vector3 movePosition;
@@ -15,44 +17,53 @@ public class Enemy : MonoBehaviour, IDamage
     private Collider2D myCol;
     private Transform player;
     private float shootTimer;
+    private ScoreManager scoreManager;
+    [SerializeField] private float distanceToInteract;
+    private bool shootPlayer;
 
 
     private void Start()
     {
+        scoreManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<ScoreManager>();
         myCol = GetComponent<Collider2D>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         isMoving = true;
+        myCol.enabled = false;
     }
 
     private void Update()
     {
+        ShootAtPlayer();
         if (isMoving)
         {
             transform.position = Vector3.MoveTowards(transform.position, movePosition, speedMove);
-            if (Vector3.Distance(transform.position, movePosition) < 0.01f)
+            if (Vector3.Distance(transform.position, movePosition) < distanceToInteract)
             {
                 isMoving = false;
+                shootPlayer = true;
                 myCol.enabled = true;
                 shootTimer = shootInterval;
             }
         }
-        else
-        {
-            ShootAtPlayer();
-        }
+        // if(shootPlayer)
+        // {
+        //     ShootAtPlayer();
+        // }
     }
 
     private void ShootAtPlayer()
     {
-        if (player == null) Debug.LogError("Player object is null");
         
         shootTimer -= Time.deltaTime;
         if (shootTimer <= 0)
         {
             shootTimer = shootInterval;
-            Vector3 direction = (player.position -firePoint.position).normalized;
-            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
-            bullet.GetComponent<ShootEnemy>().SetDirection(direction);
+            foreach (Transform points in firePoint)
+            {
+                Vector3 direction = (player.position -points.position).normalized;
+                            GameObject bullet = Instantiate(bulletPrefab, points.position, Quaternion.identity);
+                            bullet.GetComponent<ShootEnemy>().SetDirection(direction);
+            }
         }
     }
 
@@ -69,6 +80,8 @@ public class Enemy : MonoBehaviour, IDamage
     {
         OnDeath?.Invoke(this);
         Destroy(gameObject);
+        if (LayerMask.LayerToName(gameObject.layer) == "Boss") scoreManager.AddScoreBoss();
+        if (LayerMask.LayerToName(gameObject.layer) == "Enemy") scoreManager.AddScore();
     }
 
     public void SetToMovePosition(Vector3 position)

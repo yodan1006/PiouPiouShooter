@@ -4,7 +4,7 @@ using UnityEngine;
 public class ScoreManager : MonoBehaviour
 {
     public TextMeshProUGUI ScoreText;
-    private int score;
+    public int score;
     public int ScoreAdd;
     public int ScoreAddBoss;
 

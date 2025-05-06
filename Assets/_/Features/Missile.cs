@@ -8,13 +8,11 @@ public class Missile : MonoBehaviour
     private LoopingMissile _loopingMissile;
     private Camera mainCamera;
     private Vector2 _screenBounds;
-    private ScoreManager scoreManage;
 
     private void Start()
     {
         _loopingMissile = FindObjectOfType<LoopingMissile>();
-        scoreManage = FindObjectOfType<ScoreManager>();
-        mainCamera = Camera.main; // Stocker la référence à la caméra
+        mainCamera = Camera.main;
         _screenBounds = mainCamera.ViewportToWorldPoint(new Vector3(1, 1, mainCamera.transform.position.z));
 
         if (onEnemyHit == null)
@@ -41,13 +39,7 @@ public class Missile : MonoBehaviour
             {
                 damageable.Damage();
                 onEnemyHit.Invoke();
-                scoreManage.AddScore();
-            }
-        _loopingMissile.ReturnToPool(gameObject);
-    }
-
-    public void SetScoreManager(ScoreManager scoreManage1)
-    {
-        scoreManage = scoreManage1;
+            } 
+            _loopingMissile.ReturnToPool(gameObject);
     }
 }
