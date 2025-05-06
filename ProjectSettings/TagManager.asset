@@ -42,5 +42,20 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 1882608899
+    locked: 0
+  - name: Characters
+    uniqueID: 2135200449
+    locked: 0
+  - name: Bullets
+    uniqueID: 2632569497
+    locked: 0
+  - name: VFX
+    uniqueID: 4165919353
+    locked: 0
+  - name: UI
+    uniqueID: 106190545
+    locked: 0
   m_RenderingLayers:
   - Default
