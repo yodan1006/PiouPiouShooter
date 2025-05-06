@@ -1582,7 +1582,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScoreText: {fileID: 1212200291}
   ScoreAdd: 100
-  ScoreAddBoss: 1000
+  ScoreAddBoss: 2000
 --- !u!4 &1665085928
 Transform:
   m_ObjectHideFlags: 0
