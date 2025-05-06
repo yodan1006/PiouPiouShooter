@@ -3,7 +3,7 @@ using UnityEngine;
 public class Shoot : MonoBehaviour
 {
     [SerializeField] LoopingMissile missilePool;
-    [SerializeField] int missileCount = 5;
+    public int missileCount = 5;
     [SerializeField] float spreadAngle = 30f;
     [SerializeField] float missileSpeed = 10f;
 

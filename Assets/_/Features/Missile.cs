@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -32,14 +33,15 @@ public class Missile : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-            IDamage damageable = collision.gameObject.GetComponent<IDamage>();
-            if (damageable != null)
-            {
-                damageable.Damage();
-                onEnemyHit.Invoke();
-            } 
-            _loopingMissile.ReturnToPool(gameObject);
+        IDamage damageable = other.gameObject.GetComponent<IDamage>();
+        if (damageable != null)
+        {
+            damageable.Damage();
+            onEnemyHit.Invoke();
+        } 
+        
+        _loopingMissile.ReturnToPool(gameObject);
     }
 }
