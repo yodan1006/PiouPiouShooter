@@ -21,27 +21,9 @@ public class Missile : MonoBehaviour
         {
             onEnemyHit = new UnityEvent();
         }
-
-        //RegisterToScoreManager();
     }
 
-    /*public void RegisterToScoreManager()
-    {
-
-        if (scoreManage != null)
-        {
-            scoreManage.RegisterMissile(this);
-        }
-    }
-
-    public void UnregisterFromScoreManager()
-    {
-
-        if (scoreManage != null)
-        {
-            scoreManage.UnregisterMissile(this);
-        }
-    }*/
+   
 
     private void Update()
     {
