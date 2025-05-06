@@ -17,17 +17,32 @@ public class Shoot : MonoBehaviour
         float angleStep = spreadAngle / (missileCount - 1);
         float startAngle = -spreadAngle / 2;
 
-        for (int i = 0; i < missileCount; i++)
+        if (missileCount == 1)
         {
-            float angle = startAngle + (angleStep * i);
-            Vector2 direction = Quaternion.Euler(0, 0, angle) * Vector2.up;
-
-            GameObject missile = missilePool.GetMissiles();
-            missile.transform.position = transform.position;
-
-            Rigidbody2D rb = missile.GetComponent<Rigidbody2D>();
-            rb.linearVelocity = direction.normalized * missileSpeed;
+            Vector2 direction =  Vector2.up;
+            ShootMissile(direction);
         }
+
+        if (missileCount > 1)
+        {
+            for (int i = 0; i < missileCount; i++)
+                    {
+                        float angle = startAngle + (angleStep * i);
+                        Vector2 direction = Quaternion.Euler(0, 0, angle) * Vector2.up;
+            
+                        ShootMissile(direction);
+                    }
+        }
+        
+    }
+
+    private void ShootMissile(Vector2 direction)
+    {
+        GameObject missile = missilePool.GetMissiles();
+        missile.transform.position = transform.position;
+
+        Rigidbody2D rb = missile.GetComponent<Rigidbody2D>();
+        rb.linearVelocity = direction.normalized * missileSpeed;
     }
 
     public void IncreaseMissileCount(int amount)

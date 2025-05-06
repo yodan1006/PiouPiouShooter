@@ -2251,7 +2251,7 @@ PrefabInstance:
       objectReference: {fileID: 1166456573}
     - target: {fileID: 4985515057488437208, guid: 4ec4edeccdbd7684781038ea4c7e2439, type: 3}
       propertyPath: missileCount
-      value: 15
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5497270622409431192, guid: 4ec4edeccdbd7684781038ea4c7e2439, type: 3}
       propertyPath: m_LocalPosition.x
