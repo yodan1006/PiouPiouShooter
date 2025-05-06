@@ -14,10 +14,14 @@ public class WaveManager : MonoBehaviour
     private bool IsSpawning = false;
     private int enemiesLifeBonus;
     private int miniBossLifeBonus;
+    private float enemySpeedBonus;
+    [SerializeField] private int NbMaxToEnemy;
     [SerializeField] private int bonusToLifeBonus;
     [SerializeField] private int bonusToMiniBossLifeBonus;
+    [SerializeField] private float bonusToSpeedBonus;
     [SerializeField] private Transform spawnPointMiniBoss;
-    [SerializeField] private Transform movePointMiniBoss;
+    [SerializeField] private Transform movePointMiniBoss; 
+    [SerializeField]private MiniBossHealtUI miniBossHealtUI;
 
     private void Awake()
     {
@@ -39,6 +43,14 @@ public class WaveManager : MonoBehaviour
             {
                 enemiesLifeBonus += bonusToLifeBonus;
                 miniBossLifeBonus += bonusToMiniBossLifeBonus;
+                enemySpeedBonus += bonusToSpeedBonus;   
+                foreach (var wave in waves)
+                {
+                    if (wave.numberOfEnemies < NbMaxToEnemy)
+                    {
+                        wave.numberOfEnemies++;
+                    }
+                }
             }
             if (currentWave >= waves.Count)
                 currentWave = 0;
@@ -64,6 +76,7 @@ public class WaveManager : MonoBehaviour
             if (enemyScript != null)
             {
                 enemyScript.AddLife(enemiesLifeBonus);
+                enemyScript.AddSpeed(enemySpeedBonus);
                 if (availablePoints.Count > 0)
                 {
                     Transform pointToAssign = availablePoints[0];
@@ -83,11 +96,18 @@ public class WaveManager : MonoBehaviour
             GameObject miniBoss = Instantiate(wave.prefabsMiniBoss, spawnPointMiniBoss);
             Enemy miniBossScript = miniBoss.GetComponent<Enemy>();
             miniBossScript.AddLife(miniBossLifeBonus);
+            miniBossScript.AddSpeed(enemySpeedBonus);
             miniBossScript.SetToMovePosition(movePointMiniBoss.position);
             activeWaveObjects.Add(miniBossScript);
+            if (miniBossHealtUI != null)
+            {
+                miniBossHealtUI.gameObject.SetActive(true);
+                miniBossHealtUI.SetMiniBoss(miniBossScript);
+            }
             miniBossScript.OnDeath += OnEnemyDeath;
+            
         }
-        
+
         IsSpawning = false;
         
         yield return new WaitUntil(() => activeWaveObjects.Count == 0);

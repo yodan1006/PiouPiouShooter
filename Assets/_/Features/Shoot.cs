@@ -6,10 +6,20 @@ public class Shoot : MonoBehaviour
     public int missileCount = 5;
     [SerializeField] float spreadAngle = 30f;
     [SerializeField] float missileSpeed = 10f;
-
+    [SerializeField] private float timeToShoot = 1f;
+    private float shootCooldown = 0f;
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) FireMissile();
+        if (Input.GetKey(KeyCode.Space))
+        {
+            shootCooldown -= Time.deltaTime;
+            if (shootCooldown <= 0f)
+            {
+                FireMissile();
+                shootCooldown = timeToShoot;
+            }
+        }
+        else shootCooldown = 0;
     }
 
     public void FireMissile()

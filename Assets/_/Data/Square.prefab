@@ -102,14 +102,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 1
-  speedMove: 5.26
-  shootInterval: 1.5
+  speedMove: 0.07
+  shootInterval: 2.06
   bulletPrefab: {fileID: 4551409222481671777, guid: 446883f1ff6329b4a80b6cf124a386a0, type: 3}
   firePoint:
   - {fileID: 7202893403077106245}
   gainScore: 100
   multiplieScale: 1
   distanceToInteract: 0.1
+  isDoubleShoot: 0
+  spreadAngle: 0
+  missileCount: 0
 --- !u!61 &141235728938253458
 BoxCollider2D:
   m_ObjectHideFlags: 0

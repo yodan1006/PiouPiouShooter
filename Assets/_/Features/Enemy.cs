@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour, IDamage
     [SerializeField] private float multiplieScale;
     public event Action<Enemy> OnDeath;
 
+    private int maxLife;
     private Vector3 movePosition;
     private bool isMoving;
     private Collider2D myCol;
@@ -134,6 +135,12 @@ public class Enemy : MonoBehaviour, IDamage
     public void AddLife(int amount)
     {
         life += amount;
+        maxLife = life;
+    }
+
+    public void AddSpeed(float amount)
+    {
+        speedMove += amount;
     }
 
     private void ShootMissile(Vector2 direction)
@@ -144,5 +151,15 @@ public class Enemy : MonoBehaviour, IDamage
             bullet.transform.localScale *= multiplieScale;
             bullet.GetComponent<ShootEnemy>().SetDirection(direction);
         }
+    }
+
+    public int GetCurrentLife()
+    {
+        return life;
+    }
+
+    public int GetMaxLife()
+    {
+        return maxLife;
     }
 }
