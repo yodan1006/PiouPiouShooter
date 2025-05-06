@@ -14,6 +14,8 @@ public class WaveManager : MonoBehaviour
     private List<Enemy> activeWaveObjects;
     private int currentWave = 0;
     private bool IsSpawning = false;
+    [SerializeField] private Transform spawnPointMiniBoss;
+    [SerializeField] private Transform movePointMiniBoss;
 
     private void Awake()
     {
@@ -68,6 +70,16 @@ public class WaveManager : MonoBehaviour
             
             yield return new WaitForSeconds(wave.spawnInterval);
         }
+
+        if (wave.spawnMiniBoss)
+        {
+            GameObject miniBoss = Instantiate(wave.prefabsMiniBoss, spawnPointMiniBoss);
+            Enemy miniBossScript = miniBoss.GetComponent<Enemy>();
+            miniBossScript.SetToMovePosition(movePointMiniBoss.position);
+            activeWaveObjects.Add(miniBossScript);
+            miniBossScript.OnDeath += OnEnemyDeath;
+        }
+        
         IsSpawning = false;
         
         yield return new WaitUntil(() => activeWaveObjects.Count == 0);
