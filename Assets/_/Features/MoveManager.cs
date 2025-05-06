@@ -12,7 +12,7 @@ public class MoveManager : MonoBehaviour
 
     private void Start()
     {
-        _InputDirection = transform.position;
+        _InputDirection = Vector2.zero;
         Camera cam = Camera.main;
         float vertExtent = cam.orthographicSize;
         float horzExtent = vertExtent * Screen.width / Screen.height;
