@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7874781875190691932}
   - component: {fileID: 141235728938253458}
   m_Layer: 8
-  m_Name: Square
+  m_Name: Square 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -110,6 +110,9 @@ MonoBehaviour:
   gainScore: 100
   multiplieScale: 1
   distanceToInteract: 0.1
+  isDoubleShoot: 1
+  spreadAngle: 45
+  missileCount: 2
 --- !u!61 &141235728938253458
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -1,8 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class WaveManager : MonoBehaviour
 {
@@ -14,6 +12,10 @@ public class WaveManager : MonoBehaviour
     private List<Enemy> activeWaveObjects;
     private int currentWave = 0;
     private bool IsSpawning = false;
+    private int enemiesLifeBonus;
+    private int miniBossLifeBonus;
+    [SerializeField] private int bonusToLifeBonus;
+    [SerializeField] private int bonusToMiniBossLifeBonus;
     [SerializeField] private Transform spawnPointMiniBoss;
     [SerializeField] private Transform movePointMiniBoss;
 
@@ -33,7 +35,11 @@ public class WaveManager : MonoBehaviour
         {
             yield return StartCoroutine(SpawnWave(waves[currentWave]));
             currentWave++;
-            
+            if (currentWave % 5 == 0)
+            {
+                enemiesLifeBonus += bonusToLifeBonus;
+                miniBossLifeBonus += bonusToMiniBossLifeBonus;
+            }
             if (currentWave >= waves.Count)
                 currentWave = 0;
             
@@ -57,6 +63,7 @@ public class WaveManager : MonoBehaviour
             Enemy enemyScript = enemy.GetComponent<Enemy>();
             if (enemyScript != null)
             {
+                enemyScript.AddLife(enemiesLifeBonus);
                 if (availablePoints.Count > 0)
                 {
                     Transform pointToAssign = availablePoints[0];
@@ -75,6 +82,7 @@ public class WaveManager : MonoBehaviour
         {
             GameObject miniBoss = Instantiate(wave.prefabsMiniBoss, spawnPointMiniBoss);
             Enemy miniBossScript = miniBoss.GetComponent<Enemy>();
+            miniBossScript.AddLife(miniBossLifeBonus);
             miniBossScript.SetToMovePosition(movePointMiniBoss.position);
             activeWaveObjects.Add(miniBossScript);
             miniBossScript.OnDeath += OnEnemyDeath;

@@ -717,6 +717,8 @@ MonoBehaviour:
   - {fileID: 1165305864}
   - {fileID: 561987590}
   timeForNextWave: 2
+  bonusToLifeBonus: 1
+  bonusToMiniBossLifeBonus: 2
   spawnPointMiniBoss: {fileID: 461353092}
   movePointMiniBoss: {fileID: 284129618}
 --- !u!4 &671385549
@@ -1915,6 +1917,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabs:
   - {fileID: 2910246865431610960, guid: 9d352a9d72883d74dbd1119267f8d326, type: 3}
+  - {fileID: 2910246865431610960, guid: 7f284e94e4a12ec43afb84744ac6798d, type: 3}
+  - {fileID: 2910246865431610960, guid: 4ad5bd5b7d941cf4fab6f045b086505b, type: 3}
   numberOfEnemies: 6
   spawnInterval: 0.1
   prefabsMiniBoss: {fileID: 0}
