@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour, IDamage
 {
@@ -12,8 +14,13 @@ public class Enemy : MonoBehaviour, IDamage
     [SerializeField] private int gainScore;
     [SerializeField] private float multiplieScale;
     [SerializeField] private Color _colorForBullet;
+    [SerializeField]private bool isDoubleShoot;
+    [SerializeField] private int spreadAngle;
+    [SerializeField] private int missileCount;
+    [SerializeField] private float distanceToInteract;
     public event Action<Enemy> OnDeath;
 
+    private bool isDead;
     private int maxLife;
     private Vector3 movePosition;
     private bool isMoving;
@@ -21,11 +28,10 @@ public class Enemy : MonoBehaviour, IDamage
     private Transform player;
     private float shootTimer;
     private ScoreManager scoreManager;
-    [SerializeField] private float distanceToInteract;
     private bool shootPlayer;
-    [SerializeField]private bool isDoubleShoot;
-    [SerializeField] private int spreadAngle;
-    [SerializeField] private int missileCount;
+    private bool isDaying;
+    [SerializeField] private Sprite deathSprite;
+    [SerializeField] private float deathTimer;
 
 
     private void Start()
@@ -39,6 +45,7 @@ public class Enemy : MonoBehaviour, IDamage
 
     private void Update()
     {
+        if (isDaying) return;
         if (!isDoubleShoot)
         {
             if (isMoving)
@@ -124,10 +131,41 @@ public class Enemy : MonoBehaviour, IDamage
 
     private void Die()
     {
+        if(isDead) return;
+        isDead = true;
+        isDaying = true;
+        myCol.enabled = false;
         OnDeath?.Invoke(this);
-        Destroy(gameObject);
+        StartCoroutine(HandleDeathSequence());
+        //OnDeath?.Invoke(this);
+        //Destroy(gameObject);
         if (LayerMask.LayerToName(gameObject.layer) == "Boss") scoreManager.AddScoreBoss();
         if (LayerMask.LayerToName(gameObject.layer) == "Enemy") scoreManager.AddScore();
+    }
+
+    private IEnumerator HandleDeathSequence()
+    {
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        Vector2 offScreenPos = GetRandomScreenPos();
+        if (sr != null && deathSprite != null)
+        {
+            sr.sprite = deathSprite;
+        }
+        while (Vector3.Distance(transform.position, offScreenPos) > 0.1f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, offScreenPos, speedMove * 0.5f);
+            yield return null;
+        }
+        
+        yield return new WaitForSeconds(deathTimer);
+        Destroy(gameObject);
+    }
+
+    private Vector2 GetRandomScreenPos()
+    {
+        float distance = 100f;
+        Vector2 randompos = Random.insideUnitCircle.normalized;
+        return transform.position + (Vector3)(randompos * distance);
     }
 
     public void SetToMovePosition(Vector3 position)
@@ -141,9 +179,9 @@ public class Enemy : MonoBehaviour, IDamage
         maxLife = life;
     }
 
-    public void AddSpeed(float amount)
+    public void AddSpeedShoot(float amount)
     {
-        speedMove += amount;
+        shootTimer += amount;
     }
 
     private void ShootMissile(Vector2 direction)

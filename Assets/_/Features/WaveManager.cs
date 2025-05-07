@@ -14,7 +14,7 @@ public class WaveManager : MonoBehaviour
     private bool IsSpawning = false;
     private int enemiesLifeBonus;
     private int miniBossLifeBonus;
-    private float enemySpeedBonus;
+    private float enemySpeedShootBonus;
     [SerializeField] private int NbMaxToEnemy;
     [SerializeField] private int bonusToLifeBonus;
     [SerializeField] private int bonusToMiniBossLifeBonus;
@@ -43,7 +43,7 @@ public class WaveManager : MonoBehaviour
             {
                 enemiesLifeBonus += bonusToLifeBonus;
                 miniBossLifeBonus += bonusToMiniBossLifeBonus;
-                enemySpeedBonus += bonusToSpeedBonus;   
+                enemySpeedShootBonus += bonusToSpeedBonus;   
                 foreach (var wave in waves)
                 {
                     if (wave.numberOfEnemies < NbMaxToEnemy)
@@ -76,7 +76,7 @@ public class WaveManager : MonoBehaviour
             if (enemyScript != null)
             {
                 enemyScript.AddLife(enemiesLifeBonus);
-                enemyScript.AddSpeed(enemySpeedBonus);
+                enemyScript.AddSpeedShoot(enemySpeedShootBonus);
                 if (availablePoints.Count > 0)
                 {
                     Transform pointToAssign = availablePoints[0];
@@ -96,7 +96,7 @@ public class WaveManager : MonoBehaviour
             GameObject miniBoss = Instantiate(wave.prefabsMiniBoss, spawnPointMiniBoss);
             Enemy miniBossScript = miniBoss.GetComponent<Enemy>();
             miniBossScript.AddLife(miniBossLifeBonus);
-            miniBossScript.AddSpeed(enemySpeedBonus);
+            miniBossScript.AddSpeedShoot(enemySpeedShootBonus);
             miniBossScript.SetToMovePosition(movePointMiniBoss.position);
             activeWaveObjects.Add(miniBossScript);
             if (miniBossHealtUI != null)
