@@ -174,7 +174,11 @@ MonoBehaviour:
   - {fileID: 3031246486398375981}
   - {fileID: 3260404430270400938}
   gainScore: 2000
+  multiplieScale: 1
   distanceToInteract: 0.1
+  isDoubleShoot: 0
+  spreadAngle: 0
+  missileCount: 0
 --- !u!60 &-5413724990084058709
 PolygonCollider2D:
   m_ObjectHideFlags: 0
