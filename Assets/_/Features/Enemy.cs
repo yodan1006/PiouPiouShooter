@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour, IDamage
     [SerializeField] private List<Transform> firePoint = new List<Transform>();
     [SerializeField] private int gainScore;
     [SerializeField] private float multiplieScale;
+    [SerializeField] private Color _colorForBullet;
     public event Action<Enemy> OnDeath;
 
     private int maxLife;
@@ -104,6 +105,8 @@ public class Enemy : MonoBehaviour, IDamage
             {
                 Vector3 direction = (player.position - points.position).normalized;
                 GameObject bullet = Instantiate(bulletPrefab, points.position, Quaternion.identity);
+                //bullet.GetComponent<SpriteRenderer>().color = _colorForBullet;
+                bullet.transform.localScale = new Vector3(bullet.transform.localScale.x, bullet.transform.localScale.y * -1, bullet.transform.localScale.z);
                 bullet.transform.localScale *= multiplieScale;
                 bullet.GetComponent<ShootEnemy>().SetDirection(direction);
             }
@@ -148,6 +151,8 @@ public class Enemy : MonoBehaviour, IDamage
         foreach (Transform points in firePoint)
         {
             GameObject bullet = Instantiate(bulletPrefab, points.position, Quaternion.identity);
+            //bullet.GetComponent<SpriteRenderer>().color = _colorForBullet;
+            bullet.transform.localScale = new Vector3(bullet.transform.localScale.x, bullet.transform.localScale.y * -1, bullet.transform.localScale.z);
             bullet.transform.localScale *= multiplieScale;
             bullet.GetComponent<ShootEnemy>().SetDirection(direction);
         }

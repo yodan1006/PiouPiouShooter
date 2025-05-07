@@ -247,7 +247,12 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      S_FX_sparkle02_0: 4509379128325937010
+      S_FX_sparkle02_1: -7785829224269143995
+      S_FX_sparkle02_2: -880248436430177008
+      S_FX_sparkle02_3: 7627314294021652174
+      S_FX_sparkle02_4: 6588691622501249205
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
