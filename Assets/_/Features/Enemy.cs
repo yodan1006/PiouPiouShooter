@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, IDamage
 {
-    [SerializeField]private int life = 1;
+    [SerializeField] private int life = 1;
     [SerializeField] private float speedMove;
     [SerializeField] private float shootInterval;
     [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private List<Transform> firePoint =  new List<Transform>();
+    [SerializeField] private List<Transform> firePoint = new List<Transform>();
     [SerializeField] private int gainScore;
+    [SerializeField] private float multiplieScale;
     public event Action<Enemy> OnDeath;
-    
+
+    private int maxLife;
     private Vector3 movePosition;
     private bool isMoving;
     private Collider2D myCol;
@@ -20,6 +22,9 @@ public class Enemy : MonoBehaviour, IDamage
     private ScoreManager scoreManager;
     [SerializeField] private float distanceToInteract;
     private bool shootPlayer;
+    [SerializeField]private bool isDoubleShoot;
+    [SerializeField] private int spreadAngle;
+    [SerializeField] private int missileCount;
 
 
     private void Start()
@@ -33,36 +38,74 @@ public class Enemy : MonoBehaviour, IDamage
 
     private void Update()
     {
-        ShootAtPlayer();
-        if (isMoving)
+        if (!isDoubleShoot)
         {
-            transform.position = Vector3.MoveTowards(transform.position, movePosition, speedMove);
-            if (Vector3.Distance(transform.position, movePosition) < distanceToInteract)
+            if (isMoving)
             {
-                isMoving = false;
-                shootPlayer = true;
-                myCol.enabled = true;
-                shootTimer = shootInterval;
+                transform.position = Vector3.MoveTowards(transform.position, movePosition, speedMove);
+                if (Vector3.Distance(transform.position, movePosition) < distanceToInteract)
+                {
+                    isMoving = false;
+                    shootPlayer = true;
+                    myCol.enabled = true;
+                    shootTimer = shootInterval;
+                }
+            }
+
+            ShootAtPlayer();
+        }
+
+        if (isDoubleShoot)
+        {
+            if(isMoving)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, movePosition, speedMove);
+                if (Vector3.Distance(transform.position, movePosition) < distanceToInteract)
+                {
+                    isMoving = false;
+                    shootPlayer = true;
+                    myCol.enabled = true;
+                    shootTimer = shootInterval;
+                }
             }
         }
-        // if(shootPlayer)
-        // {
-        //     ShootAtPlayer();
-        // }
+        DoubleShoot();
+    }
+
+    void DoubleShoot()
+    {
+        shootTimer -= Time.deltaTime;
+        if (shootTimer <= 0)
+        {
+            shootTimer = shootInterval;
+            
+            Vector2 baseDir = (player.position - transform.position).normalized;
+            float angleStep = spreadAngle / (missileCount - 1);
+            float startAngle = -spreadAngle / 2;
+                for (int i = 0; i < missileCount; i++)
+                {
+                    float angle = startAngle + (angleStep * i);
+                    Vector2 direction = Quaternion.Euler(0, 0, angle) * baseDir;
+
+                    ShootMissile(direction);
+            }
+
+        }
     }
 
     private void ShootAtPlayer()
     {
-        
+
         shootTimer -= Time.deltaTime;
         if (shootTimer <= 0)
         {
             shootTimer = shootInterval;
             foreach (Transform points in firePoint)
             {
-                Vector3 direction = (player.position -points.position).normalized;
-                            GameObject bullet = Instantiate(bulletPrefab, points.position, Quaternion.identity);
-                            bullet.GetComponent<ShootEnemy>().SetDirection(direction);
+                Vector3 direction = (player.position - points.position).normalized;
+                GameObject bullet = Instantiate(bulletPrefab, points.position, Quaternion.identity);
+                bullet.transform.localScale *= multiplieScale;
+                bullet.GetComponent<ShootEnemy>().SetDirection(direction);
             }
         }
     }
@@ -87,5 +130,36 @@ public class Enemy : MonoBehaviour, IDamage
     public void SetToMovePosition(Vector3 position)
     {
         movePosition = position;
+    }
+
+    public void AddLife(int amount)
+    {
+        life += amount;
+        maxLife = life;
+    }
+
+    public void AddSpeed(float amount)
+    {
+        speedMove += amount;
+    }
+
+    private void ShootMissile(Vector2 direction)
+    {
+        foreach (Transform points in firePoint)
+        {
+            GameObject bullet = Instantiate(bulletPrefab, points.position, Quaternion.identity);
+            bullet.transform.localScale *= multiplieScale;
+            bullet.GetComponent<ShootEnemy>().SetDirection(direction);
+        }
+    }
+
+    public int GetCurrentLife()
+    {
+        return life;
+    }
+
+    public int GetMaxLife()
+    {
+        return maxLife;
     }
 }
