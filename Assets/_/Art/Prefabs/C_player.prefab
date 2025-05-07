@@ -105,9 +105,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  "timeInvincibilit\xE9": 2
-  normalSprite: {fileID: 21300000, guid: 5773a1ada04dcee40961f9893bc3b851, type: 3}
-  hitSprite: {fileID: 21300000, guid: e22aa0283b042714285c230cd55ea9bb, type: 3}
+  "timeInvincibilit\xE9": 1.5
+  normalSprite: {fileID: 21300000, guid: e5741e18cd6f5b14bab940b8eb31e3b0, type: 3}
+  hitSprite: {fileID: 21300000, guid: 93fd1821b64000149ae54c55b06e401b, type: 3}
 --- !u!114 &5029765679186535488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,9 +122,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missilePool: {fileID: 0}
   missileCount: 1
-  spreadAngle: 30
-  missileSpeed: 10
-  timeToShoot: 1
+  spreadAngle: 25
+  missileSpeed: 15
+  timeToShoot: 0.175
 --- !u!114 &7818996923462316953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,7 +255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0f7c4361efd3024c93f1bc6398b39c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 10
+  _moveSpeed: 7
   margineToScreen: 0.5
 --- !u!60 &6057981098926555030
 PolygonCollider2D:

@@ -5,8 +5,6 @@ public class ScoreManager : MonoBehaviour
 {
     public TextMeshProUGUI ScoreText;
     public int score;
-    public int ScoreAdd;
-    public int ScoreAddBoss;
 
 
     private void Update()
@@ -14,13 +12,13 @@ public class ScoreManager : MonoBehaviour
         ScoreText.text = score.ToString();
     }
 
-    public void AddScore()
+    public void AddScore(int scoreToAdd)
     {
-        score += ScoreAdd;
+        score += scoreToAdd;
     }
 
-    public void AddScoreBoss()
+    public void AddScoreBoss(int scoreToAdd)
     {
-        score += ScoreAddBoss;
+        score += scoreToAdd;
     }
 }

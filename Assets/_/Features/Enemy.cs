@@ -107,7 +107,6 @@ public class Enemy : MonoBehaviour, IDamage
         shootTimer -= Time.deltaTime;
         if (shootTimer <= 0)
         {
-            shootTimer = shootInterval;
             foreach (Transform points in firePoint)
             {
                 Vector3 direction = (player.position - points.position).normalized;
@@ -117,6 +116,7 @@ public class Enemy : MonoBehaviour, IDamage
                 bullet.transform.localScale *= multiplieScale;
                 bullet.GetComponent<ShootEnemy>().SetDirection(direction);
             }
+            shootTimer = shootInterval;
         }
     }
 
@@ -139,8 +139,8 @@ public class Enemy : MonoBehaviour, IDamage
         StartCoroutine(HandleDeathSequence());
         //OnDeath?.Invoke(this);
         //Destroy(gameObject);
-        if (LayerMask.LayerToName(gameObject.layer) == "Boss") scoreManager.AddScoreBoss();
-        if (LayerMask.LayerToName(gameObject.layer) == "Enemy") scoreManager.AddScore();
+        if (LayerMask.LayerToName(gameObject.layer) == "Boss") scoreManager.AddScoreBoss(gainScore);
+        if (LayerMask.LayerToName(gameObject.layer) == "Enemy") scoreManager.AddScore(gainScore);
     }
 
     private IEnumerator HandleDeathSequence()
@@ -153,7 +153,7 @@ public class Enemy : MonoBehaviour, IDamage
         }
         while (Vector3.Distance(transform.position, offScreenPos) > 0.1f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, offScreenPos, speedMove * 0.5f);
+            transform.position = Vector3.MoveTowards(transform.position, offScreenPos, speedMove * 2f);
             yield return null;
         }
         

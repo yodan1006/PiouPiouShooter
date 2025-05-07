@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class WaveManager : MonoBehaviour
 {
@@ -16,12 +17,12 @@ public class WaveManager : MonoBehaviour
     private int miniBossLifeBonus;
     private float enemySpeedShootBonus;
     [SerializeField] private int NbMaxToEnemy;
-    [SerializeField] private int bonusToLifeBonus;
-    [SerializeField] private int bonusToMiniBossLifeBonus;
+    [SerializeField] private int incrementationLifeEnemy;
+    [SerializeField] private int incrementationToMiniBossLifeBonus;
     [SerializeField] private float bonusToSpeedBonus;
     [SerializeField] private Transform spawnPointMiniBoss;
     [SerializeField] private Transform movePointMiniBoss; 
-    [SerializeField]private MiniBossHealtUI miniBossHealtUI;
+    [SerializeField] private MiniBossHealtUI miniBossHealtUI;
 
     private void Awake()
     {
@@ -41,8 +42,8 @@ public class WaveManager : MonoBehaviour
             currentWave++;
             if (currentWave % 5 == 0)
             {
-                enemiesLifeBonus += bonusToLifeBonus;
-                miniBossLifeBonus += bonusToMiniBossLifeBonus;
+                enemiesLifeBonus += incrementationLifeEnemy;
+                miniBossLifeBonus += incrementationToMiniBossLifeBonus;
                 enemySpeedShootBonus += bonusToSpeedBonus;   
                 foreach (var wave in waves)
                 {
