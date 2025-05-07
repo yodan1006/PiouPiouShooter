@@ -45,14 +45,14 @@ TagManager:
   - name: Background
     uniqueID: 1882608899
     locked: 0
-  - name: Characters
+  - name: FX
+    uniqueID: 4165919353
+    locked: 0
+  - name: Character
     uniqueID: 2135200449
     locked: 0
-  - name: Bullets
-    uniqueID: 2632569497
-    locked: 0
-  - name: VFX
-    uniqueID: 4165919353
+  - name: Enemy
+    uniqueID: 3538022495
     locked: 0
   - name: UI
     uniqueID: 106190545
