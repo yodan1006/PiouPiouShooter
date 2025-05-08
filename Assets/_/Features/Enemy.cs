@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -110,11 +111,14 @@ public class Enemy : MonoBehaviour, IDamage
             foreach (Transform points in firePoint)
             {
                 Vector3 direction = (player.position - points.position).normalized;
-                GameObject bullet = Instantiate(bulletPrefab, points.position, Quaternion.identity);
+                //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                //Quaternion rotation = Quaternion.Euler(0, 0, angle);
+                GameObject bullet = Instantiate(bulletPrefab, points.position, quaternion.identity);
                 //bullet.GetComponent<SpriteRenderer>().color = _colorForBullet;
                 bullet.transform.localScale = new Vector3(bullet.transform.localScale.x, bullet.transform.localScale.y * -1, bullet.transform.localScale.z);
                 bullet.transform.localScale *= multiplieScale;
                 bullet.GetComponent<ShootEnemy>().SetDirection(direction);
+                
             }
             shootTimer = shootInterval;
         }
