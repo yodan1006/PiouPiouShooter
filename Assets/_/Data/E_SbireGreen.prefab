@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 2
-  speedMove: 0.21
+  speedMove: 0.035
   shootInterval: 2.3
   bulletPrefab: {fileID: 1033246554574780694, guid: ba7bddc47eb026f45916c68248ae41df, type: 3}
   firePoint:

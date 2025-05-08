@@ -718,6 +718,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1665085930}
     - target: {fileID: 8729961777755689471, guid: 7bf1b33161fef7047a856529a45fcd43, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8729961777755689471, guid: 7bf1b33161fef7047a856529a45fcd43, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8729961777755689471, guid: 7bf1b33161fef7047a856529a45fcd43, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8729961777755689471, guid: 7bf1b33161fef7047a856529a45fcd43, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -932,7 +944,7 @@ MonoBehaviour:
   - {fileID: 4894048179757583332, guid: 958155f3503fb054ea287ff596e400a7, type: 3}
   - {fileID: 7102369396024532060, guid: f6ee2c17bab30ba4ba04548f5fe34699, type: 3}
   - {fileID: 3202887269929644105, guid: 02589ffacff41ff4a83c20e0dbf0a168, type: 3}
-  numberOfEnemies: 1
+  numberOfEnemies: 2
   spawnInterval: 0.2
   prefabsMiniBoss: {fileID: 4334976716624932277, guid: 583d5d32df0814d448389590630746c2, type: 3}
   spawnMiniBoss: 0
@@ -1245,7 +1257,7 @@ MonoBehaviour:
   - {fileID: 4894048179757583332, guid: 958155f3503fb054ea287ff596e400a7, type: 3}
   - {fileID: 7102369396024532060, guid: f6ee2c17bab30ba4ba04548f5fe34699, type: 3}
   - {fileID: 3202887269929644105, guid: 02589ffacff41ff4a83c20e0dbf0a168, type: 3}
-  numberOfEnemies: 1
+  numberOfEnemies: 5
   spawnInterval: 0.2
   prefabsMiniBoss: {fileID: 4334976716624932277, guid: 583d5d32df0814d448389590630746c2, type: 3}
   spawnMiniBoss: 0
@@ -1571,7 +1583,7 @@ MonoBehaviour:
   - {fileID: 4894048179757583332, guid: 958155f3503fb054ea287ff596e400a7, type: 3}
   - {fileID: 7102369396024532060, guid: f6ee2c17bab30ba4ba04548f5fe34699, type: 3}
   - {fileID: 3202887269929644105, guid: 02589ffacff41ff4a83c20e0dbf0a168, type: 3}
-  numberOfEnemies: 1
+  numberOfEnemies: 3
   spawnInterval: 0.2
   prefabsMiniBoss: {fileID: 4334976716624932277, guid: 583d5d32df0814d448389590630746c2, type: 3}
   spawnMiniBoss: 0
@@ -1800,7 +1812,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.57100004}
   m_AnchorMax: {x: 0.3605006, y: 1}
-  m_AnchoredPosition: {x: -5, y: 5}
+  m_AnchoredPosition: {x: -5, y: 4.9999847}
   m_SizeDelta: {x: -10, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1212200291
@@ -2535,7 +2547,7 @@ MonoBehaviour:
   maxLife: 3
   life: 3
   scoreManager: {fileID: 1665085927}
-  bonusScores: d0070000a00f000070170000401f0000
+  bonusScores: 8813000010270000983a0000204e0000a861000030750000409c0000c8af000050c30000d8d6000060ea0000
 --- !u!114 &1665085931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2613,7 +2625,7 @@ MonoBehaviour:
   - {fileID: 4894048179757583332, guid: 958155f3503fb054ea287ff596e400a7, type: 3}
   - {fileID: 7102369396024532060, guid: f6ee2c17bab30ba4ba04548f5fe34699, type: 3}
   - {fileID: 3202887269929644105, guid: 02589ffacff41ff4a83c20e0dbf0a168, type: 3}
-  numberOfEnemies: 1
+  numberOfEnemies: 4
   spawnInterval: 0.2
   prefabsMiniBoss: {fileID: 4334976716624932277, guid: 583d5d32df0814d448389590630746c2, type: 3}
   spawnMiniBoss: 0
@@ -2879,7 +2891,7 @@ MonoBehaviour:
   - {fileID: 4894048179757583332, guid: 958155f3503fb054ea287ff596e400a7, type: 3}
   - {fileID: 7102369396024532060, guid: f6ee2c17bab30ba4ba04548f5fe34699, type: 3}
   - {fileID: 3202887269929644105, guid: 02589ffacff41ff4a83c20e0dbf0a168, type: 3}
-  numberOfEnemies: 4
+  numberOfEnemies: 2
   spawnInterval: 0.2
   prefabsMiniBoss: {fileID: 4334976716624932277, guid: 23dc5739ee35f8a4491aed04368a81bf, type: 3}
   spawnMiniBoss: 1

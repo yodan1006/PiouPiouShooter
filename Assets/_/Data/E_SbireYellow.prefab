@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 4
-  speedMove: 0.0045
+  speedMove: 0.035
   shootInterval: 2.5
   bulletPrefab: {fileID: 1033246554574780694, guid: 47a9eac24c5b01a46a56da1bd4a6be9a, type: 3}
   firePoint:
@@ -112,7 +112,7 @@ MonoBehaviour:
   multiplieScale: 1
   _colorForBullet: {r: 0, g: 0, b: 0, a: 0}
   isDoubleShoot: 1
-  spreadAngle: 45
+  spreadAngle: 55
   missileCount: 3
   distanceToInteract: 0.1
   deathSprite: {fileID: 21300000, guid: 9365c327a21f9d140b3d09f04abe3392, type: 3}

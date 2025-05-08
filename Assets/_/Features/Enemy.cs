@@ -181,7 +181,7 @@ public class Enemy : MonoBehaviour, IDamage
 
     public void AddSpeedShoot(float amount)
     {
-        shootTimer += amount;
+        shootInterval -= amount;
     }
 
     private void ShootMissile(Vector2 direction)

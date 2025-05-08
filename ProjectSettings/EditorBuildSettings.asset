@@ -9,14 +9,11 @@ EditorBuildSettings:
     path: Assets/_/Levels/startGame.unity
     guid: 094f2ac20db0044419f1c3a24c2b9311
   - enabled: 1
-    path: Assets/_/Levels/BrandonProto.unity
-    guid: a30dc8f9c7ecf9a41b32acf551ae2cf3
+    path: Assets/_/Levels/Proto.unity
+    guid: a689f712774f2264dbff1ce09b808c11
   - enabled: 1
     path: Assets/_/Levels/EndGame.unity
     guid: 63ef1465932a34b499695dc110541c9c
-  - enabled: 1
-    path: Assets/_/Levels/Tuto.unity
-    guid: 78540eaed89a4c94fa8969a4d9a8b5ec
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
