@@ -35,7 +35,7 @@ public class PlayerHit : MonoBehaviour, IDamagePlayer
     private IEnumerator InvincibilityCoroutine()
     {
         _isInvincible = true;
-        shootplayer.enabled = false;
+        //shootplayer.enabled = false;
         collider2D.enabled = false;
 
         float blinkDuration = timeInvincibilité;
@@ -54,7 +54,7 @@ public class PlayerHit : MonoBehaviour, IDamagePlayer
         spriteRenderer.sprite = normalSprite;
         spriteRenderer.enabled = true;
         
-        shootplayer.enabled = true;
+        //shootplayer.enabled = true;
         _isInvincible = false;
         collider2D.enabled = true;
     }
