@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
     
     public void EndGame()
     {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        scoreManager.CheckAndAddHighScore(scoreManager.score);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
