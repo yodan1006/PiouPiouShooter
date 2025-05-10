@@ -14,7 +14,7 @@ public class ShootEnemy : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(direction * speed * Time.deltaTime);
+        transform.position += direction * speed * Time.deltaTime;
         lifeTime -= Time.deltaTime;
         if (lifeTime <= 0)
         {
