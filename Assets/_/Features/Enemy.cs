@@ -47,6 +47,10 @@ public class Enemy : MonoBehaviour, IDamage
     private void Update()
     {
         if (isDaying) return;
+        Vector3 directionToPlayer = (player.position - transform.position).normalized;
+        float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle + 90);
+        
         if (!isDoubleShoot)
         {
             if (isMoving)

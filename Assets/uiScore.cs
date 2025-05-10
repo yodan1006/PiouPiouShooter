@@ -13,27 +13,29 @@ public class uiScore : MonoBehaviour
 
     private void DisplayHighScores()
     {
-        int[] highScores = LoadHighScores();
+        ScoreEntry[] highScores = LoadHighScores();
 
         for (int i = 0; i < scoreTexts.Length; i++)
         {
             if (i < highScores.Length)
             {
-                scoreTexts[i].text = $"#{i + 1}: {highScores[i]}"; 
+                scoreTexts[i].text = $"#{i + 1}: {highScores[i].playerName} - {highScores[i].score}"; 
             }
             else
             {
-                scoreTexts[i].text = $"#{i + 1}: ---";
+                scoreTexts[i].text = $"#{i + 1}: --- - 0";
             }
         }
     }
 
-    private int[] LoadHighScores()
+    private ScoreEntry[] LoadHighScores()
     {
-        int[] highScores = new int[maxHighScores];
+        ScoreEntry[] highScores = new ScoreEntry[maxHighScores];
         for (int i = 0; i < maxHighScores; i++)
         {
-            highScores[i] = PlayerPrefs.GetInt("HighScore" + i, 0);
+            string name = PlayerPrefs.GetString("HighScoreName" + i, "---");
+            int score = PlayerPrefs.GetInt("HighScore" + i, 0);
+            highScores[i] = new ScoreEntry(name, score);
         }
         return highScores;
     }

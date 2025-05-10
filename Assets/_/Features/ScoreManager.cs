@@ -23,20 +23,20 @@ public class ScoreManager : MonoBehaviour
         score += scoreToAdd;
     }
     
-    public void CheckAndAddHighScore(int playerScore)
+    public void CheckAndAddHighScore(int playerScore, string playerName)
     {
-        int[] highScores = LoadHighScores();
+        ScoreEntry[] highScores = LoadHighScores();
         
         for (int i = 0; i < _maxHightScore; i++)
         {
-            if (playerScore > highScores[i])
+            if (playerScore > highScores[i].score)
             {
                 for (int j = _maxHightScore - 1; j > i; j--)
                 {
                     highScores[j] = highScores[j - 1];
                 }
                 
-                highScores[i] = playerScore;
+                highScores[i] = new ScoreEntry(playerName, playerScore);
                 
                 SaveHighScores(highScores);
                 return;
@@ -44,21 +44,24 @@ public class ScoreManager : MonoBehaviour
         }
     }
     
-    private int[] LoadHighScores()
+    private ScoreEntry[] LoadHighScores()
     {
-        int[] highScores = new int[_maxHightScore];
+        ScoreEntry[] highScores = new ScoreEntry[_maxHightScore];
         for (int i = 0; i < _maxHightScore; i++)
         {
-            highScores[i] = PlayerPrefs.GetInt("HighScore" + i, 0);
+            string name = PlayerPrefs.GetString("HighScoreName" + i, "---");
+            int score = PlayerPrefs.GetInt("HighScore" + i, 0);
+            highScores[i] = new ScoreEntry(name, score);
         }
         return highScores;
     }
     
-    private void SaveHighScores(int[] highScores)
+    private void SaveHighScores(ScoreEntry[] highScores)
     {
         for (int i = 0; i < _maxHightScore; i++)
         {
-            PlayerPrefs.SetInt("HighScore" + i, highScores[i]);
+            PlayerPrefs.SetString("HighScoreName" + i, highScores[i].playerName);
+            PlayerPrefs.SetInt("HighScore" + i, highScores[i].score);
         }
         PlayerPrefs.Save();
     }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,17 +11,25 @@ public class GameManager : MonoBehaviour
     public int life;
     public SceneManager sceneManager;
     public ScoreManager scoreManager;
-    [SerializeField]private List<int> bonusScores = new List<int>();
+    [SerializeField] private List<int> bonusScores = new List<int>();
     private HashSet<int> bonusScoresSet = new HashSet<int>();
+
+    public GameObject nameInputPanel;
+    public TMP_InputField nameInputField;
+    public string defaultName = "Player";
 
     private void Start()
     {
         scoreManager = scoreManager.GetComponent<ScoreManager>();
+        if (nameInputPanel != null)
+        {
+            nameInputPanel.SetActive(false);
+        }
     }
 
     private void FixedUpdate()
     {
-        if(life <= 0) EndGame();
+        if (life <= 0) EndGame();
     }
 
     private void Update()
@@ -35,10 +44,10 @@ public class GameManager : MonoBehaviour
         scoreActuelle = scoreManager.score;
         foreach (var palier in bonusScores)
         {
-            if (scoreActuelle >= palier && !bonusScoresSet.Contains(palier) )
+            if (scoreActuelle >= palier && !bonusScoresSet.Contains(palier))
             {
-            bonusScoresSet.Add(palier);
-            GiveBonusForScore(palier);
+                bonusScoresSet.Add(palier);
+                GiveBonusForScore(palier);
             }
         }
     }
@@ -46,13 +55,34 @@ public class GameManager : MonoBehaviour
     public void GiveBonusForScore(int palier)
     {
         if (life < maxLife) life++;
-        
+
         else scoreManager.score = scoreManager.score + ajoutBonusMaxLife;
     }
-    
+
     public void EndGame()
     {
-        scoreManager.CheckAndAddHighScore(scoreManager.score);
+        if (nameInputPanel != null)
+        {
+            Time.timeScale = 0;
+            nameInputPanel.SetActive(true);
+        }
+        else
+        {
+            SaveScoreAndContinue(defaultName);
+        }
+    }
+
+    public void SaveScoreAndContinue(string name = "")
+    {
+        if (string.IsNullOrEmpty(name))
+        {
+            name = nameInputField != null ? nameInputField.text : defaultName;
+            if (string.IsNullOrEmpty(name)) name = defaultName;
+        }
+
+        Time.timeScale = 1;
+        scoreManager.CheckAndAddHighScore(scoreManager.score, name);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
+
